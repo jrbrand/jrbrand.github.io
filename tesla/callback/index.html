@@ -1,0 +1,11 @@
+<!doctype html><html><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1"><title>Tesla OAuth Callback</title>
+<style>body{font-family:sans-serif;max-width:800px;margin:40px auto;padding:0 16px}#code{font-size:1.6em;font-family:monospace;word-break:break-all;background:#f3f3f3;padding:16px;border-radius:8px}button{font-size:1.2em;padding:10px 20px;margin-top:12px}.err{color:#b00}</style></head>
+<body><h1>Tesla OAuth Callback</h1><div id="out"></div>
+<script>
+const p=new URLSearchParams(location.search),c=p.get('code'),s=p.get('state'),e=p.get('error'),o=document.getElementById('out');
+function t(tag,txt,cls){const n=document.createElement(tag);n.textContent=txt;if(cls)n.className=cls;o.appendChild(n);return n;}
+if(e){t('p','Error: '+e+(p.get('error_description')?' - '+p.get('error_description'):''),'err');}
+if(c){t('p','Authorization code:');const d=t('div',c);d.id='code';const b=t('button','Copy code');b.onclick=()=>navigator.clipboard.writeText(c).then(()=>b.textContent='Copied!');
+if(s)t('p','State: '+s);t('p','Paste this code back into the chat.');}
+else if(!e){t('p','No code found in the URL.');}
+</script></body></html>
